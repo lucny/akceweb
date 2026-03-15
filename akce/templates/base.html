@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <title>{% block title %}Filmotéka{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <!-- Add additional CSS in static file -->
+    {% block css %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+    {% block header %}
+        {% include "page/header.html" %}
+    {% endblock %}
+    </header>
+    {% block navbar %}
+        {% include "page/navbar.html" %}
+    {% endblock %}
+    <main class="container-fluid">
+    {% block content %}{% endblock %}
+    </main>
+    <footer class="container-fluid">
+    {% block footer %}
+        {% include "page/footer.html" %}
+    {% endblock %}
+    </footer>
+<!-- jQuery library -->
+<script src="{% static 'bootstrap/jquery.min.js' %}"></script>
+<!-- Popper JS -->
+<script src="{% static 'bootstrap/popper.min.js' %}"></script>
+<!-- Latest compiled JavaScript -->
+<script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

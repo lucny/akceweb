@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-sm-12 bg-warning">
+        <h2 class="display-4 text-center">{{ view.object|yesno:"Upravit akci,Vložit akci" }}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Uložit</button>
+            <a href="{% url 'akce_list' %}" class="btn btn-secondary">Zpět</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

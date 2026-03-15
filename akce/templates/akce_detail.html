@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-sm-12 bg-warning">
+        <h2 class="display-4 text-center">{{ nadpis }}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h3 class="text-danger">{{ akce.nazev|upper }}</h3>
+        <p><strong>Datum:</strong> {{ akce.datum }}</p>
+        <p><strong>Kategorie:</strong> {{ akce.kategorie }}</p>
+        <p><strong>Hodnocení:</strong> {{ akce.hodnoceni }}</p>
+        <div class="alert alert-info" role="alert">
+            <p><strong></strong> {{ akce.popis }}</p>
+        </div>
+        <div>
+        {% if user.is_superuser or perms.akce.change_akce and user == akce.autor %}
+        <a class="btn btn-outline-secondary" href="{% url 'akce_update' akce.pk %}">Upravit</a>
+        {% endif %}
+        {% if user.is_superuser or perms.akce.delete_akce and user == akce.autor %}
+        <a class="btn btn-outline-danger" href="{% url 'akce_delete' akce.pk %}">Smazat</a>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

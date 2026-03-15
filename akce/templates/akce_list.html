@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-sm-12 bg-warning">
+        <h2 class="display-4 text-center">{{ nadpis }}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        {% if perms.akce.add_akce %}
+        <p>
+            <a class="btn btn-primary" href="{% url 'akce_create' %}">Vložit novou akci</a>
+        </p>
+        {% endif %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Název</th>
+                    <th>Datum</th>
+                    <th>Kategorie</th>
+                    <th>Hodnocení</th>
+                    <th>Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for akce in akce %}
+            <tr>
+                <td><a href="{% url 'akce_detail' akce.pk %}">{{ akce.nazev|upper }}</a></td>
+                <td>{{ akce.datum }}</td>
+                <td>{{ akce.kategorie }}</td>
+                <td>{{ akce.hodnoceni }}</td>
+                <td>
+                    {% if perms.akce.change_akce and user.is_authenticated and user == akce.autor or user.is_superuser %}
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'akce_update' akce.pk %}">Upravit</a>
+                    {% endif %}
+                    {% if perms.akce.delete_akce and user.is_authenticated and user == akce.autor or user.is_superuser %}
+                    <a class="btn btn-sm btn-outline-danger" href="{% url 'akce_delete' akce.pk %}">Smazat</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
