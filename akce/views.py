@@ -18,16 +18,7 @@ def index(request):
 
     return render(request, 'index.html', context=context)
 
-
-@login_required(login_url="/admin")
-def akce_list(request):
-    context = {
-        'nadpis': 'Seznam akcí',
-        'akce': Akce.objects.order_by('-datum'),
-    }
-
-    return render(request, 'akce_list.html', context=context)
-
+# Doplnit view pro zobrazení seznamu akcí
 
 class AkceDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
     model = Akce
